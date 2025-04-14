@@ -48,6 +48,24 @@
             font-size: 14px;
             cursor: pointer;
         }
+        .error-message {
+            color: #d93025;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        .success-message {
+            color: #1e8e3e;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+        .error-border {
+            border-color: #d93025 !important;
+        }
+        .success-border {
+            border-color: #1e8e3e !important;
+        }
     </style>
 </head>
 <body>
@@ -58,13 +76,16 @@
                 <label for="email">Email Address:</label>
                 <input type="text" id="email" name="email" value="I">
                 <span class="required-text">This field is required.</span>
+                <div id="emailError" class="error-message">Please enter a valid email address.</div>
             </div>
             <div class="form-group">
                 <label for="confirmEmail">Confirm Email Address:</label>
                 <input type="text" id="confirmEmail" name="confirmEmail">
                 <span class="required-text">This field is required.</span>
+                <div id="confirmEmailError" class="error-message">Email addresses do not match.</div>
             </div>
             <button type="button" id="confirmButton">Confirm</button>
+            <div id="successMessage" class="success-message">Email verified successfully!</div>
         </form>
     </div>
 
