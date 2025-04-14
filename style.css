@@ -36,10 +36,6 @@ input {
     box-sizing: border-box;
 }
 
-input:invalid {
-    border-color: #d93025;
-}
-
 #confirmButton {
     background-color: #1a73e8;
     color: white;
@@ -49,7 +45,6 @@ input:invalid {
     font-size: 14px;
     cursor: pointer;
     margin-top: 10px;
-    width: 100%;
 }
 
 .success-message {
@@ -68,11 +63,4 @@ input:invalid {
     border-radius: 3px;
     cursor: pointer;
     font-size: 14px;
-}
-
-.error-message {
-    color: #d93025;
-    margin-top: 10px;
-    font-size: 14px;
-    display: none;
 }
