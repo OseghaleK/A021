@@ -1,71 +1,58 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const emailForm = document.getElementById('emailForm');
     const emailInput = document.getElementById('email');
     const confirmEmailInput = document.getElementById('confirmEmail');
     const confirmButton = document.getElementById('confirmButton');
-    const emailError = document.getElementById('emailError');
-    const confirmError = document.getElementById('confirmError');
-    const successPopup = document.getElementById('successPopup');
-    const closePopup = document.getElementById('closePopup');
+    const successMessage = document.getElementById('successMessage');
+    const closeButton = document.getElementById('closeButton');
+    const errorMessage = document.getElementById('errorMessage');
 
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     }
 
-    function showError(element, message) {
-        element.textContent = message;
-        element.style.display = 'block';
+    function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+        successMessage.style.display = 'none';
     }
 
-    function hideErrors() {
-        emailError.style.display = 'none';
-        confirmError.style.display = 'none';
+    function resetMessages() {
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'none';
     }
 
-    function showSuccessPopup() {
-        successPopup.style.display = 'flex';
-    }
+    emailForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        resetMessages();
 
-    function hideSuccessPopup() {
-        successPopup.style.display = 'none';
-    }
-
-    confirmButton.addEventListener('click', function() {
         const email = emailInput.value.trim();
         const confirmEmail = confirmEmailInput.value.trim();
 
-        hideErrors();
-
-        if (!email) {
-            showError(emailError, 'Email address is required');
-            return;
-        }
-
-        if (!confirmEmail) {
-            showError(confirmError, 'Confirm email address is required');
+        if (!email || !confirmEmail) {
+            showError('Both email fields are required');
             return;
         }
 
         if (!validateEmail(email)) {
-            showError(emailError, 'Please enter a valid email address');
+            showError('Please enter a valid email address');
             return;
         }
 
         if (email !== confirmEmail) {
-            showError(confirmError, 'Email addresses do not match');
+            showError('Email addresses do not match');
             return;
         }
 
-        showSuccessPopup();
+        successMessage.style.display = 'block';
     });
 
-    closePopup.addEventListener('click', hideSuccessPopup);
+    closeButton.addEventListener('click', function() {
+        successMessage.style.display = 'none';
+    });
 
-    // Clear errors when user starts typing
-    emailInput.addEventListener('input', function() {
-        hideErrors();
-    });
-    confirmEmailInput.addEventListener('input', function() {
-        hideErrors();
-    });
+    // Real-time validation
+    emailInput.addEventListener('input', resetMessages);
+    confirmEmailInput.addEventListener('input', resetMessages);
 });
