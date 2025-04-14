@@ -1,60 +1,67 @@
+// Email verification form validation script
 document.addEventListener('DOMContentLoaded', function() {
+    // Get form elements
+    const emailForm = document.getElementById('emailForm');
     const emailInput = document.getElementById('email');
     const confirmEmailInput = document.getElementById('confirmEmail');
     const confirmButton = document.getElementById('confirmButton');
-    const errorMessage = document.getElementById('errorMessage');
-    const successPopup = document.getElementById('successPopup');
-    const closePopup = document.getElementById('closePopup');
+    const message = document.getElementById('message');
 
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
+    // Function to show message
+    function showMessage(text, isSuccess) {
+        message.textContent = text;
+        message.style.display = 'block';
+        
+        if (isSuccess) {
+            message.className = 'success';
+        } else {
+            message.className = 'error';
+        }
     }
 
-    function showError(message) {
-        errorMessage.textContent = message;
-        errorMessage.style.display = 'block';
-    }
-
-    function hideError() {
-        errorMessage.style.display = 'none';
-    }
-
-    function showSuccessPopup() {
-        successPopup.style.display = 'flex';
-    }
-
-    function hideSuccessPopup() {
-        successPopup.style.display = 'none';
-    }
-
-    confirmButton.addEventListener('click', function() {
+    // Add click event listener to confirm button
+    confirmButton.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent form submission
+        
+        // Get input values
         const email = emailInput.value.trim();
         const confirmEmail = confirmEmailInput.value.trim();
-
-        hideError();
-
-        if (!email || !confirmEmail) {
-            showError('Both email fields are required');
+        
+        // Clear previous messages
+        message.style.display = 'none';
+        
+        // Check if first email field is empty
+        if (email === '') {
+            showMessage('Email Address field is required.', false);
+            emailInput.focus();
             return;
         }
-
-        if (!validateEmail(email)) {
-            showError('Please enter a valid email address');
+        
+        // Check if confirmation email field is empty
+        if (confirmEmail === '') {
+            showMessage('Confirm Email Address field is required.', false);
+            confirmEmailInput.focus();
             return;
         }
-
+        
+        // Check if emails match
         if (email !== confirmEmail) {
-            showError('Email addresses do not match');
+            showMessage('Email addresses do not match. Please check and try again.', false);
+            confirmEmailInput.focus();
             return;
         }
-
-        showSuccessPopup();
+        
+        // If all validations pass
+        showMessage('Email confirmation was successful!', true);
     });
 
-    closePopup.addEventListener('click', hideSuccessPopup);
-
-    // Clear error when user starts typing
-    emailInput.addEventListener('input', hideError);
-    confirmEmailInput.addEventListener('input', hideError);
+    // Reset message when user starts typing
+    emailInput.addEventListener('input', function() {
+        message.style.display = 'none';
+    });
+    
+    confirmEmailInput.addEventListener('input', function() {
+        message.style.display = 'none';
+    });
 });
+</script>
