@@ -1,55 +1,39 @@
-$(document).ready(function() {
-    const emailInput = $('#email');
-    const confirmEmailInput = $('#confirmEmail');
-    const errorMessage = $('#errorMessage');
-    const successMessage = $('#successMessage');
-    const confirmButton = $('#confirmButton');
+// Email verification form validation script
+document.addEventListener('DOMContentLoaded', function() {
+    const emailInput = document.getElementById('email');
+    const confirmEmailInput = document.getElementById('confirmEmail');
+    const confirmButton = document.getElementById('confirmButton');
 
-    // Hide messages initially
-    errorMessage.hide();
-    successMessage.hide();
-
-    confirmButton.click(function() {
-        const email = emailInput.val().trim();
-        const confirmEmail = confirmEmailInput.val().trim();
+    confirmButton.addEventListener('click', function() {
+        const email = emailInput.value.trim();
+        const confirmEmail = confirmEmailInput.value.trim();
         
-        // Hide messages on new verification attempt
-        errorMessage.hide();
-        successMessage.hide();
-
-        // Scenario 1: No data entered
         if (email === '' || confirmEmail === '') {
-            errorMessage.text('Please fill in both email fields').show();
+            alert('Please fill in both email fields');
             return;
         }
-
-        // Scenario 2: Emails don't match
+        
         if (email !== confirmEmail) {
-            errorMessage.text('Email addresses do not match').show();
-            confirmEmailInput.css('border-color', '#d93025');
+            alert('Email addresses do not match');
             return;
         }
-
-        // Scenario 3: Emails match
-        successMessage.show();
-        confirmEmailInput.css('border-color', '#1e8e3e');
+        
+        alert('Email verified successfully!');
     });
 
-    // Real-time validation
-    confirmEmailInput.on('input', function() {
-        const email = emailInput.val().trim();
-        const confirmEmail = $(this).val().trim();
-        
-        errorMessage.hide();
+    // Optional: Real-time validation as user types
+    confirmEmailInput.addEventListener('input', function() {
+        const email = emailInput.value.trim();
+        const confirmEmail = this.value.trim();
         
         if (email && confirmEmail) {
             if (email === confirmEmail) {
-                $(this).css('border-color', '#1e8e3e');
+                this.style.borderColor = '#1e8e3e'; // Green border for matching
             } else {
-                $(this).css('border-color', '#d93025');
+                this.style.borderColor = '#d93025'; // Red border for not matching
             }
         } else {
-            $(this).css('border-color', '#dadce0');
+            this.style.borderColor = '#ccc'; // Default border
         }
     });
 });
