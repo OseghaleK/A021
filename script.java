@@ -1,18 +1,12 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const confirmButton = document.getElementById('confirmButton');
-    const closeButton = document.getElementById('closeButton');
-    const successMessage = document.getElementById('successMessage');
-    
-    confirmButton.addEventListener('click', function() {
-        const email = document.getElementById('email').value.trim();
-        const confirmEmail = document.getElementById('confirmEmail').value.trim();
+$(document).ready(function() {
+    $('#verify').click(function() {
+        var email1 = $('#email1').val();
+        var email2 = $('#email2').val();
         
-        if (email === confirmEmail && email.includes('@') && email.includes('.')) {
-            successMessage.style.display = 'block';
+        if (email1 === email2) {
+            alert('Email has been confirmed!');
+        } else {
+            alert('Emails do not match!');
         }
-    });
-    
-    closeButton.addEventListener('click', function() {
-        successMessage.style.display = 'none';
     });
 });
