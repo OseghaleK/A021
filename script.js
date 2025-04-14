@@ -1,48 +1,55 @@
 $(document).ready(function() {
-    $('#confirmButton').click(function() {
-        const email = $('#email').val().trim();
-        const confirmEmail = $('#confirmEmail').val().trim();
-        const errorMessage = $('#errorMessage');
+    const emailInput = $('#email');
+    const confirmEmailInput = $('#confirmEmail');
+    const errorMessage = $('#errorMessage');
+    const successMessage = $('#successMessage');
+    const confirmButton = $('#confirmButton');
+
+    // Hide messages initially
+    errorMessage.hide();
+    successMessage.hide();
+
+    confirmButton.click(function() {
+        const email = emailInput.val().trim();
+        const confirmEmail = confirmEmailInput.val().trim();
         
-        // Hide error message initially
+        // Hide messages on new verification attempt
         errorMessage.hide();
-        
-        // Check if fields are empty
+        successMessage.hide();
+
+        // Scenario 1: No data entered
         if (email === '' || confirmEmail === '') {
-            alert('Please fill in both email fields.');
+            errorMessage.text('Please fill in both email fields').show();
             return;
         }
-        
-        // Validate email format (simple validation)
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address.');
+
+        // Scenario 2: Emails don't match
+        if (email !== confirmEmail) {
+            errorMessage.text('Email addresses do not match').show();
+            confirmEmailInput.css('border-color', '#d93025');
             return;
         }
-        
-        // Check if emails match
-        if (email === confirmEmail) {
-            alert('Email address has been verified successfully!');
-        } else {
-            errorMessage.show();
-            $('#confirmEmail').focus();
-        }
+
+        // Scenario 3: Emails match
+        successMessage.show();
+        confirmEmailInput.css('border-color', '#1e8e3e');
     });
-    
-    // Real-time validation as user types
-    $('#confirmEmail').on('input', function() {
-        const email = $('#email').val().trim();
+
+    // Real-time validation
+    confirmEmailInput.on('input', function() {
+        const email = emailInput.val().trim();
         const confirmEmail = $(this).val().trim();
+        
+        errorMessage.hide();
         
         if (email && confirmEmail) {
             if (email === confirmEmail) {
-                $(this).css('border-color', '#4CAF50');
-                $('#errorMessage').hide();
+                $(this).css('border-color', '#1e8e3e');
             } else {
-                $(this).css('border-color', '#f44336');
+                $(this).css('border-color', '#d93025');
             }
         } else {
-            $(this).css('border-color', '#ccc');
+            $(this).css('border-color', '#dadce0');
         }
     });
 });
