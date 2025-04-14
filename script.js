@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const emailForm = document.getElementById('emailForm');
     const emailInput = document.getElementById('email');
     const confirmEmailInput = document.getElementById('confirmEmail');
     const confirmButton = document.getElementById('confirmButton');
-    const successMessage = document.getElementById('successMessage');
-    const closeButton = document.getElementById('closeButton');
     const errorMessage = document.getElementById('errorMessage');
+    const successPopup = document.getElementById('successPopup');
+    const closePopup = document.getElementById('closePopup');
 
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -15,20 +14,25 @@ document.addEventListener('DOMContentLoaded', function() {
     function showError(message) {
         errorMessage.textContent = message;
         errorMessage.style.display = 'block';
-        successMessage.style.display = 'none';
     }
 
-    function resetMessages() {
+    function hideError() {
         errorMessage.style.display = 'none';
-        successMessage.style.display = 'none';
     }
 
-    emailForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        resetMessages();
+    function showSuccessPopup() {
+        successPopup.style.display = 'flex';
+    }
 
+    function hideSuccessPopup() {
+        successPopup.style.display = 'none';
+    }
+
+    confirmButton.addEventListener('click', function() {
         const email = emailInput.value.trim();
         const confirmEmail = confirmEmailInput.value.trim();
+
+        hideError();
 
         if (!email || !confirmEmail) {
             showError('Both email fields are required');
@@ -45,14 +49,12 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        successMessage.style.display = 'block';
+        showSuccessPopup();
     });
 
-    closeButton.addEventListener('click', function() {
-        successMessage.style.display = 'none';
-    });
+    closePopup.addEventListener('click', hideSuccessPopup);
 
-    // Real-time validation
-    emailInput.addEventListener('input', resetMessages);
-    confirmEmailInput.addEventListener('input', resetMessages);
+    // Clear error when user starts typing
+    emailInput.addEventListener('input', hideError);
+    confirmEmailInput.addEventListener('input', hideError);
 });
