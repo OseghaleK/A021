@@ -1,6 +1,4 @@
-// Email verification form validation script
 document.addEventListener('DOMContentLoaded', function() {
-    // Get all required elements
     const emailInput = document.getElementById('email');
     const confirmEmailInput = document.getElementById('confirmEmail');
     const confirmButton = document.getElementById('confirmButton');
@@ -10,8 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to validate email format
     function isValidEmail(email) {
-        // Basic email validation - could be replaced with more comprehensive regex
-        return email.includes('@') && email.includes('.');
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
     }
 
     // Function to reset all validation states
@@ -31,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const confirmEmail = confirmEmailInput.value.trim();
         let isValid = true;
         
-        // Check if either field is empty
+        // Validate email field
         if (email === '') {
             emailError.textContent = 'Email address is required.';
             emailError.style.display = 'block';
@@ -44,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
         
+        // Validate confirm email field
         if (confirmEmail === '') {
             confirmEmailError.textContent = 'Confirm email address is required.';
             confirmEmailError.style.display = 'block';
@@ -56,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
         
-        // If everything is valid, show success message
+        // If everything is valid, show success
         if (isValid) {
             emailInput.classList.add('success-border');
             confirmEmailInput.classList.add('success-border');
@@ -64,17 +63,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Real-time validation as user types in confirmation field
+    // Real-time validation for confirm email field
     confirmEmailInput.addEventListener('input', function() {
         const email = emailInput.value.trim();
         const confirmEmail = this.value.trim();
         
-        // Hide error message when user starts typing again
         confirmEmailError.style.display = 'none';
+        this.classList.remove('error-border', 'success-border');
         
         if (email && confirmEmail) {
-            this.classList.remove('error-border', 'success-border');
-            
             if (email === confirmEmail) {
                 this.classList.add('success-border');
             } else {
@@ -83,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Reset validation styling when user edits the email field
+    // Reset validation when editing email field
     emailInput.addEventListener('input', function() {
         resetValidation();
     });
