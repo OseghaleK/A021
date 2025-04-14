@@ -1,30 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Verification</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="email-verification">
-        <h2>Please verify your email address</h2>
-        <form id="emailForm">
-            <div class="form-group">
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email">
-            </div>
-            <div class="form-group">
-                <label for="confirmEmail">Confirm Email Address:</label>
-                <input type="email" id="confirmEmail" name="confirmEmail">
-            </div>
-            <button type="button" id="confirmButton">Confirm</button>
-            <div id="successMessage" class="success-message">
-                Email confirmation successful<br>
-                <button type="button" id="closeButton">Close</button>
-            </div>
-        </form>
-    </div>
+    <h2>Email Verification</h2>
+    <form>
+        <p>Email: <input type="text" id="email1"></p>
+        <p>Confirm Email: <input type="text" id="email2"></p>
+        <button id="verify">Confirm</button>
+    </form>
+
     <script src="script.js"></script>
 </body>
 </html>
