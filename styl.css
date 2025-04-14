@@ -1,66 +1,58 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: white;
-}
+document.addEventListener('DOMContentLoaded', function() {
+    const emailForm = document.getElementById('emailForm');
+    const emailInput = document.getElementById('email');
+    const confirmEmailInput = document.getElementById('confirmEmail');
+    const confirmButton = document.getElementById('confirmButton');
+    const successMessage = document.getElementById('successMessage');
+    const closeButton = document.getElementById('closeButton');
+    const errorMessage = document.getElementById('errorMessage');
 
-.email-verification {
-    max-width: 400px;
-}
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
 
-h2 {
-    color: #000000;
-    font-size: 20px;
-    font-weight: normal;
-    margin-bottom: 20px;
-}
+    function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+        successMessage.style.display = 'none';
+    }
 
-.form-group {
-    margin-bottom: 15px;
-}
+    function resetMessages() {
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'none';
+    }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #000000;
-    font-size: 14px;
-}
+    emailForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        resetMessages();
 
-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #cccccc;
-    border-radius: 3px;
-    font-size: 14px;
-    box-sizing: border-box;
-}
+        const email = emailInput.value.trim();
+        const confirmEmail = confirmEmailInput.value.trim();
 
-#confirmButton {
-    background-color: #1a73e8;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    padding: 8px 16px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 10px;
-}
+        if (!email || !confirmEmail) {
+            showError('Both email fields are required');
+            return;
+        }
 
-.success-message {
-    color: #000000;
-    margin-top: 15px;
-    font-size: 14px;
-    display: none;
-}
+        if (!validateEmail(email)) {
+            showError('Please enter a valid email address');
+            return;
+        }
 
-#closeButton {
-    background-color: #f1f1f1;
-    color: #000000;
-    border: 1px solid #cccccc;
-    margin-top: 10px;
-    padding: 6px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 14px;
-}
+        if (email !== confirmEmail) {
+            showError('Email addresses do not match');
+            return;
+        }
+
+        successMessage.style.display = 'block';
+    });
+
+    closeButton.addEventListener('click', function() {
+        successMessage.style.display = 'none';
+    });
+
+    // Real-time validation
+    emailInput.addEventListener('input', resetMessages);
+    confirmEmailInput.addEventListener('input', resetMessages);
+});
