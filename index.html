@@ -1,35 +1,76 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: normal;
+        }
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            background-color: #4285f4;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #3367d6;
+        }
+        .error {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Please verify your email address</h2>
+    <form id="emailForm">
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmEmail">Confirm Email Address:</label>
+            <input type="email" id="confirmEmail" name="confirmEmail" required>
+            <div id="errorMessage" class="error">Email addresses do not match</div>
+        </div>
+        <button type="button" id="confirmButton">Verify Email</button>
+    </form>
 
-   <html>
-
-   <head>
-
-       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-   </head>
-
-   <body>
-
-       <form id="emailForm">
-
-           <label for="email1">Enter your email:</label>
-
-           <input type="email" id="email1" required>
-
-           
-
-           <label for="email2">Confirm your email:</label>
-
-           <input type="email" id="email2" required>
-
-           
-
-           <button type="button" id="confirmButton">Confirm</button>
-
-       </form>
-
-       <script src="your-script.js"></script>
-
-   </body>
-
-   </html>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
