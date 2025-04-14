@@ -27,6 +27,10 @@ label {
     font-size: 14px;
 }
 
+.required {
+    color: #d93025;
+}
+
 input {
     width: 100%;
     padding: 8px;
