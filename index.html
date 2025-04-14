@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Please Verify Your Email /title>
+    <title>Email Verification</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .error { color: red; font-size: 14px; margin-top: 5px; }
+        input { padding: 8px; margin-bottom: 10px; width: 250px; }
+        button { padding: 8px 15px; background: #0066cc; color: white; border: none; cursor: pointer; }
+    </style>
 </head>
 <body>
-    <h2>Please Verify Your Email</h2>
-    <form>
-        <p>Email: <input type="text" id="email1"></p>
-        <p>Confirm Email: <input type="text" id="email2"></p>
+    <h2>Email Verification</h2>
+    <div>
+        <p>Email: <input type="email" id="email1"></p>
+        <p>Confirm Email: <input type="email" id="email2"></p>
+        <div id="error" class="error"></div>
         <button id="verify">Confirm</button>
-    </form>
+    </div>
 
     <script src="script.js"></script>
 </body>
